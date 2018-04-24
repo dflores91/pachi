@@ -15,6 +15,12 @@ class CreateIntegrantesTable extends Migration
     {
         Schema::create('integrantes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->integer('id_proyecto')->unsigned();
+            $table->foreign('id_proyecto')->references('id')->on('proyectos');
+            $table->boolean('leer');
+            $table->boolean('escribir');
             $table->timestamps();
         });
     }

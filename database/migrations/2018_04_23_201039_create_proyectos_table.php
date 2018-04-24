@@ -17,7 +17,8 @@ class CreateProyectosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('descripcion');
-            $table->integer('id_creacion');
+            $table->integer('id_creacion')->unsigned();
+            $table->foreign('id_creacion')->references('id')->on('users');
             $table->timestamps();
         });
     }
