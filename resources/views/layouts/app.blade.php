@@ -50,6 +50,20 @@
                             <li><a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Proyectos') }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('project.index') }}">
+                                        {{ __('Ver Proyecto') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('project.create') }}">
+                                        {{ __('Crear Proyecto') }}
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
