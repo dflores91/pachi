@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Integrante;
+use App\User;
 
 class IntegranteController extends Controller
 {
@@ -24,7 +25,7 @@ class IntegranteController extends Controller
      */
     public function create()
     {
-        //return view('usuarios');
+        return view('agregar');
     }
 
     /**
@@ -36,17 +37,20 @@ class IntegranteController extends Controller
     public function store(Request $request)
     {
         $integrante= new Integrante();
-        $proyecto->nombre=$request->get('name');
-        $proyecto->descripcion=$request->get('descripcion');
-        $proyecto->id_creacion=$request->get('id');
-        $proyecto->save();
+        $integrante->id_usuario=$request->get('id_usuario');
+        $integrante->id_proyecto=$request->get('id_proyecto');
+        $integrante->leer=$request->get('leer');
+        $integrante->escribir=$request->get('escribir');
+        $integrante->save();
         
-        return redirect('project')->with('success', 'Information has been added');
+        return redirect('/agregar')->with('success', 'Information has been added');
     }
 
     public function index()
     {
-        return view('/usuarios');
+        $usuarios=User::all();
+        $integrantes=Integrante::all();
+        return view('/usuarios',compact('usuarios','integrantes'));
     }
 
     /**
@@ -57,8 +61,7 @@ class IntegranteController extends Controller
      */
     public function edit($id)
     {
-        $proyecto = Proyecto::find($id);
-        return view('editproyecto',compact('proyecto','id'));
+        //
     }
 
     /**
@@ -70,11 +73,7 @@ class IntegranteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $proyecto= Proyecto::find($id);
-        $proyecto->nombre=$request->get('nombre');
-        $proyecto->descripcion=$request->get('descripcion');
-        $proyecto->save();
-        return redirect('project');
+        //
     }
 
     /**
@@ -85,8 +84,6 @@ class IntegranteController extends Controller
      */
     public function destroy($id)
     {
-        $proyecto = Proyecto::find($id);
-        $proyecto->delete();
-        return redirect('project')->with('success','Information has been  deleted');
+        //
     }
 }

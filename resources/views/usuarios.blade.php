@@ -25,13 +25,21 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Email</th>
-        <th>Fecha de Creacion</th>
-        <th colspan="1">Action</th>
+        <th colspan="2">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr>       
+      <tr>
+          @foreach($usuarios as $usuario)
+          
+          <tr>
+            <td>{{$usuario['id']}}</td>
+            <td>{{$usuario['name']}}</td>
+            <td>{{$usuario['email']}}</td>
+            
+          <td><a href="#" class="btn btn-info">Agregar</a></td>
       </tr>
+      @endforeach
     </tbody>
   </table>
   </div>
