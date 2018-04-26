@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('crud','UsuarioController');
 Route::resource('project','ProyectoController');
 Route::resource('member','IntegranteController');
+Route::resource('version','Controlversion');
+Route::post('upload', 'UploadController@upload');
