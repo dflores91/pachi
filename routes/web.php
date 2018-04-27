@@ -22,3 +22,5 @@ Route::resource('crud','UsuarioController');
 Route::resource('project','ProyectoController');
 Route::resource('member','IntegranteController');
 Route::resource('version','Controlversion');
+Route::get('/upload', 'UploadController@index');
+Route::post('/upload', 'UploadController@do_upload');

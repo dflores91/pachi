@@ -39,6 +39,7 @@
         
         <td><a href="{{action('ProyectoController@edit', $project['id'])}}" class="btn btn-warning">Edit</a></td>
         <td><a href="{{route('member.index')}}" class="btn btn-info">Usuarios</a></td>
+        <td><a href="{{route('member.index')}}" class="btn btn-info">Usuarios</a></td>
         <td>
           <form action="{{action('ProyectoController@destroy', $project['id'])}}" method="post">
             @csrf
