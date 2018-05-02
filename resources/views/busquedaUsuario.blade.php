@@ -15,12 +15,7 @@
         <p>{{ \Session::get('success') }}</p>
       </div><br />
     @endif
-    <form action="{{url('busquedas')}}" method="post">
-            @csrf
-            <input type="email" name="email" id="">
-            <input type="hidden" name="proyecto" value="{{$proyecto->id}}">
-            <button type="submit" class="btn btn-success">buscar</button>
-            </form>
+    
     <br><br>
     <table class="table table-striped">
     <thead>
@@ -39,17 +34,11 @@
             <td>{{$usuario['id']}}</td>
             <td>{{$usuario['name']}}</td>
             <td>{{$usuario['email']}}</td>
-          @if (Auth::user()->id == $dueno->id)    
-          <td>
-          @if (Auth::user()->id != $usuario['id']) 
-          <form action="{{url('mem', array('usuario'=>$usuario['id'], 'proyecto'=>$proyecto->id))}}" method="post">
+            
+          <td><form action="{{url('adduser', array('email' => $usuario['email'], 'proyecto' => $proyecto))}}" method="post">
             @csrf
-            <input name="_method" type="hidden" value="DELETE">
-            <button class="btn btn-danger" type="submit">Delete</button>
-          </form>           
-          @endif
-          </td>
-          @endif
+            <button type="submit" class="btn btn-success">Agregar</button>
+            </form></td>
       </tr>
       @endforeach
     </tbody>

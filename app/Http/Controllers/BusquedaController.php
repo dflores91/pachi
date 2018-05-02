@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Integrante;
-use App\Proyecto;
 use App\User;
 
-class IntegranteController extends Controller
+class BusquedaController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index($email,$proyecto)
     {
-        $this->middleware('auth');
+        //
+        $usuarios = User::where('email', '=', $email)->get();
+        return view('busquedaUsuario',compact('usuarios','proyecto'));
     }
 
     /**
@@ -26,7 +26,7 @@ class IntegranteController extends Controller
      */
     public function create()
     {
-        return view('agregar');
+        //
     }
 
     /**
@@ -37,23 +37,26 @@ class IntegranteController extends Controller
      */
     public function store(Request $request)
     {
-        $integrante= new Integrante();
-        $integrante->id_usuario=$request->get('id_usuario');
-        $integrante->id_proyecto=$request->get('id_proyecto');
-        $integrante->leer=$request->get('leer');
-        $integrante->escribir=$request->get('escribir');
-        $integrante->save();
-        
-        return redirect('/agregar')->with('success', 'Information has been added');
+        //
+        return redirect('busqueda/'.$request->email.'/'.$request->proyecto);
     }
 
-    public function index($id)
+    public function agregarUsuario($email, $proyecto)
     {
-        $proyecto=Proyecto::find($id);
-        $usuarios = $proyecto->integrantes->toArray();
-        $dueno = $proyecto->dueño;
-        array_push($usuarios, $dueno);
-        return view('usuarios',compact('usuarios', 'dueno', 'proyecto'));
+        //
+        $usuarios = User::where('email', '=', $email)->get();
+        $usuarios[0]->miembroDe()->attach($proyecto,['leer' => 1, "escribir" => 1]);
+        return redirect('project/'.$proyecto.'/members');
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -88,12 +91,5 @@ class IntegranteController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function borrar($usuario, $proyecto)
-    {
-        $user = User::find($usuario);
-        $user->miembroDe()->detach($proyecto);
-        return redirect('project/'.$proyecto.'/members');
     }
 }

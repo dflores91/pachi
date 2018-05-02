@@ -65,4 +65,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function proyectos()
+    {
+        return $this->hasMany('App\Proyecto', 'id_creacion');
+    }
+
+    public function miembroDe()
+    {
+        return $this->belongsToMany('App\Proyecto', 'integrantes', 'id_usuario', 'id_proyecto');
+    }
 }

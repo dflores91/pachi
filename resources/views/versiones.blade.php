@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -12,15 +13,13 @@
                         <div></div>
 
                     @else
-                    <div class="panel-heading">Agregar archivos</div>
-                    
-                    <?=form_open_multipart('files/do_upload');?>
-<input type="file" name="userfile" size="20" />
-<br />
-<input type="submit" value="Subir Archivo" />
-<?=form_close()?>
-<h5><?=br(1).anchor('files/info', 'Listado de archivos para descargar'); ?></h5>
-        
+                    <form method="post" action="{{action('UploadController@do_upload')}}" id="upload" enctype="multipart/form-data">
+                    @csrf
+    <input type="file" name="file[]" multiple><br />
+    <input type="submit">
+</form>
+<div id="message"></div>
+
                     @endif
 
                  

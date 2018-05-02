@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Proyecto;
 
 class ProyectoController extends Controller
@@ -46,7 +47,18 @@ class ProyectoController extends Controller
 
     public function index()
     {
-        $proyecto=Proyecto::all();
+        
+        $proyectosPropios=Proyecto::where('id_creacion', '=', Auth::user()->id)->get()->toArray();
+        $proyectosMiembro = Auth::user()->miembroDe->toArray();
+        foreach ($proyectosPropios as $key => $proyectoP) {
+            foreach ($proyectosMiembro as $key => $proyectoM) {
+               if ($proyectoP->id == $proyectoM->id) {
+                    array_diff($proyectosMiembro, array($proyectoM));
+                    break;
+               }
+            }
+        }
+        $proyecto = array_merge($proyectosPropios, $proyectosMiembro);
         return view('indexproyecto',compact('proyecto'));
     }
 
